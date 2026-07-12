@@ -309,3 +309,100 @@ if (refreshBtn) {
     });
 
 }
+
+/* ==========================================
+   PART 4/4
+   FINAL SETUP
+========================================== */
+
+/* ==========================================
+   UPDATE WALLET BALANCE
+========================================== */
+
+async function refreshWallet() {
+
+    try {
+
+        const userRef = doc(db, "users", currentUser.uid);
+        const snap = await getDoc(userRef);
+
+        if (!snap.exists()) return;
+
+        const data = snap.data();
+
+        wallet = Number(data.wallet || 0);
+
+        walletBalance.textContent =
+            "₦" + wallet.toLocaleString();
+
+    } catch (error) {
+
+        console.error("Wallet Error:", error);
+
+    }
+
+}
+
+/* ==========================================
+   DASHBOARD REFRESH
+========================================== */
+
+async function refreshDashboard() {
+
+    await refreshWallet();
+    await loadActivations();
+
+}
+
+/* ==========================================
+   AUTO REFRESH EVERY 30 SECONDS
+========================================== */
+
+setInterval(() => {
+
+    if (currentUser) {
+
+        refreshDashboard();
+
+    }
+
+}, 30000);
+
+/* ==========================================
+   HELPER FUNCTIONS
+========================================== */
+
+function formatPrice(price) {
+
+    return "₦" + Number(price || 0).toLocaleString();
+
+}
+
+function formatStatus(status) {
+
+    switch (status) {
+
+        case "Received":
+            return "✅ Received";
+
+        case "Waiting":
+            return "⏳ Waiting";
+
+        case "Cancelled":
+            return "❌ Cancelled";
+
+        case "Expired":
+            return "⌛ Expired";
+
+        default:
+            return status || "-";
+
+    }
+
+}
+
+/* ==========================================
+   DASHBOARD READY
+========================================== */
+
+console.log("✅ RaxySMS Dashboard Loaded Successfully");
