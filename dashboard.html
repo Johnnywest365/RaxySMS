@@ -17,15 +17,11 @@
 
 </head>
 
-
 <body>
-
 
 <div class="dashboard">
 
-
-
-<!-- HEADER -->
+<!-- ================= HEADER ================= -->
 
 <header class="top-header">
 
@@ -33,18 +29,15 @@
 RaxySMS
 </div>
 
-
-<div class="tagline">
+<p class="tagline">
 Buy your verification Easy way
-</div>
+</p>
 
 </header>
 
 
 
-
-
-<!-- WELCOME -->
+<!-- ================= WELCOME ================= -->
 
 <section class="welcome">
 
@@ -56,17 +49,13 @@ Welcome, <span id="userName">User</span>
 
 
 
-
-
-<!-- WALLET CARD -->
+<!-- ================= WALLET ================= -->
 
 <section class="wallet-card">
-
 
 <h4>
 AVAILABLE BALANCE
 </h4>
-
 
 <div class="balance-row">
 
@@ -74,87 +63,63 @@ AVAILABLE BALANCE
 ₦<span id="walletBalance">0.00</span>
 </h1>
 
-
-<button>
+<button id="fundWalletBtn">
 + Add Funds
 </button>
 
-
 </div>
-
 
 <p>
 Thanks for partnering with us
 </p>
 
-
 </section>
 
 
 
-
-
-
-
-<!-- QUICK ACTIONS -->
+<!-- ================= QUICK ACTIONS ================= -->
 
 <section class="quick-actions">
 
-
-<button>
+<button id="profileBtn">
 Profile
 </button>
 
-
-<button>
+<button id="historyBtn">
 History
 </button>
 
-
-<button>
+<button id="accountsBtn">
 Buy Accounts
 </button>
 
-
-<button>
+<button id="supportBtn">
 Support
 </button>
-
 
 </section>
 
 
 
-
-
-
-
-<!-- NUMBER OPTIONS -->
+<!-- ================= NUMBER OPTIONS ================= -->
 
 <section class="number-options">
 
 <a href="usa-numbers.html" class="number-btn">
-    🇺🇸 USA Numbers
+🇺🇸 USA Numbers
 </a>
 
 <a href="all-countries.html" class="number-btn">
-    🌍 All Countries Numbers
+🌍 All Countries Numbers
 </a>
 
 </section>
 
 
 
-
-
-
-
-
-<!-- RECENT ACTIVATIONS -->
-
+<!-- ================= RECENT ACTIVATIONS ================= -->
 
 <section class="activations">
-
 
 <div class="section-title">
 
@@ -162,48 +127,32 @@ Support
 ⭐ Recent Activations
 </h3>
 
-
-<button>
+<button id="refreshBtn">
 Refresh
 </button>
 
-
 </div>
-
-
-
-
 
 <div class="table-container">
 
-
 <table>
-
 
 <thead>
 
 <tr>
 
-<th>SERVICE</th>
-
-<th>NUMBER</th>
-
-<th>SMS CODE</th>
-
-<th>PRICE</th>
-
-<th>STATUS</th>
-
-<th>DATE</th>
+<th>Service</th>
+<th>Number</th>
+<th>SMS Code</th>
+<th>Price</th>
+<th>Status</th>
+<th>Date</th>
 
 </tr>
 
 </thead>
 
-
-
 <tbody id="activationList">
-
 
 <tr>
 
@@ -211,71 +160,47 @@ Refresh
 No activations yet
 </td>
 
-
 </tr>
-
 
 </tbody>
 
-
 </table>
 
-
 </div>
-
 
 </section>
 
 
 
-
-
-
-
-<!-- BOTTOM NAVIGATION -->
-
+<!-- ================= BOTTOM NAV ================= -->
 
 <nav class="bottom-nav">
 
-
-<button>
+<button id="ordersBtn">
 My Orders
 </button>
 
-
-<button>
+<button id="walletBtn">
 + Add Funds
 </button>
 
-
-<button>
+<button class="active">
 Home
 </button>
 
-
-<button>
+<button id="apiBtn">
 API
 </button>
-
 
 <button id="logoutBtn">
 Logout
 </button>
 
-
-
 </nav>
-
-
 
 </div>
 
-
-
-
-
 <script type="module" src="dashboard.js"></script>
-
 
 </body>
 
