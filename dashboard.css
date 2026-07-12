@@ -1,0 +1,409 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#050B18;
+
+    color:white;
+
+    min-height:100vh;
+
+    padding-bottom:90px;
+
+}
+
+
+
+.dashboard{
+
+    width:100%;
+
+    max-width:600px;
+
+    margin:auto;
+
+    padding:20px;
+
+}
+
+
+
+/* ================= HEADER ================= */
+
+
+.top-header{
+
+    margin-bottom:25px;
+
+}
+
+
+.logo{
+
+    font-size:32px;
+
+    font-weight:800;
+
+    color:#2563EB;
+
+}
+
+
+.tagline{
+
+    color:#94A3B8;
+
+    font-size:14px;
+
+}
+
+
+
+
+
+/* ================= WELCOME ================= */
+
+
+.welcome h2{
+
+    font-size:22px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+
+
+/* ================= WALLET ================= */
+
+
+.wallet-card{
+
+    background:linear-gradient(
+    135deg,
+    #2563EB,
+    #1E40AF
+    );
+
+    padding:25px;
+
+    border-radius:22px;
+
+    margin-bottom:25px;
+
+    box-shadow:
+    0 15px 40px rgba(37,99,235,.25);
+
+}
+
+
+.wallet-card h4{
+
+    font-size:13px;
+
+    opacity:.8;
+
+}
+
+
+
+.balance-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin:15px 0;
+
+}
+
+
+
+.balance-row h1{
+
+    font-size:32px;
+
+}
+
+
+
+.balance-row button{
+
+    border:none;
+
+    background:white;
+
+    color:#2563EB;
+
+    padding:10px 15px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+}
+
+
+
+
+
+.wallet-card p{
+
+    font-size:14px;
+
+    opacity:.9;
+
+}
+
+
+
+
+
+
+/* ================= BUTTON GRID ================= */
+
+
+.quick-actions{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:10px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.quick-actions button,
+.number-options button{
+
+
+    border:none;
+
+    background:#111827;
+
+    color:white;
+
+    padding:15px 8px;
+
+    border-radius:15px;
+
+    font-size:12px;
+
+    cursor:pointer;
+
+
+}
+
+
+
+
+
+/* ================= NUMBERS ================= */
+
+
+.number-options{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.number-options button{
+
+    font-size:14px;
+
+    padding:20px 10px;
+
+    border:1px solid #1E293B;
+
+}
+
+
+
+
+
+/* ================= ACTIVATIONS ================= */
+
+
+.activations{
+
+    background:#0F172A;
+
+    border-radius:20px;
+
+    padding:20px;
+
+}
+
+
+
+.section-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.section-title h3{
+
+    font-size:16px;
+
+}
+
+
+
+.section-title button{
+
+    background:none;
+
+    border:none;
+
+    color:#3B82F6;
+
+}
+
+
+
+
+
+.table-container{
+
+    overflow-x:auto;
+
+}
+
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    font-size:12px;
+
+}
+
+
+
+th{
+
+    color:#94A3B8;
+
+    padding:12px;
+
+    text-align:left;
+
+}
+
+
+
+td{
+
+    padding:12px;
+
+    border-top:1px solid #1E293B;
+
+}
+
+
+
+
+
+/* ================= BOTTOM NAV ================= */
+
+
+.bottom-nav{
+
+    position:fixed;
+
+    bottom:0;
+
+    left:0;
+
+    right:0;
+
+
+    max-width:600px;
+
+    margin:auto;
+
+
+    background:#0F172A;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    padding:15px 5px;
+
+
+    border-top:1px solid #1E293B;
+
+}
+
+
+
+.bottom-nav button{
+
+    background:none;
+
+    border:none;
+
+    color:#CBD5E1;
+
+    font-size:11px;
+
+}
+
+
+
+
+
+@media(max-width:480px){
+
+
+.quick-actions{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+
+.balance-row h1{
+
+    font-size:26px;
+
+}
+
+
+}
