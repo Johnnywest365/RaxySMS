@@ -8,35 +8,26 @@
 
 <title>USA Numbers | RaxySMS</title>
 
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-
 <link rel="stylesheet" href="numbers.css">
-
 
 </head>
 
-
 <body>
 
-
 <div class="numbers-page">
-
-
 
 <!-- HEADER -->
 
 <header class="numbers-header">
 
-
 <a href="dashboard.html" class="back-btn">
 ←
 </a>
-
 
 <div>
 
@@ -44,17 +35,13 @@
 🇺🇸 USA Numbers
 </h1>
 
-
 <p>
 Instant verification numbers
 </p>
 
 </div>
 
-
 </header>
-
-
 
 
 
@@ -62,17 +49,12 @@ Instant verification numbers
 
 <div class="search-box">
 
-
-<input 
+<input
 type="search"
-id="searchNumbers"
+id="searchInput"
 placeholder="🔍 Search services...">
 
-
 </div>
-
-
-
 
 
 
@@ -80,25 +62,17 @@ placeholder="🔍 Search services...">
 
 <section class="number-section">
 
-
 <h2>
 ⭐ Popular Services
 </h2>
 
-
-<div 
+<div
 id="popularServices"
 class="services-container">
 
-
 </div>
 
-
 </section>
-
-
-
-
 
 
 
@@ -106,34 +80,68 @@ class="services-container">
 
 <section class="number-section">
 
-
 <h2>
 🚀 All Other Services
 </h2>
 
-
-<div 
+<div
 id="otherServices"
 class="services-container">
 
-
 </div>
-
 
 </section>
 
 
 
+<!-- PURCHASE MODAL -->
 
+<div id="buyModal" class="buy-modal">
 
+<div class="buy-modal-content">
+
+<span id="closeModal" class="close-modal">
+&times;
+</span>
+
+<h2>
+Purchase Number
+</h2>
+
+<div class="purchase-info">
+
+<p>
+<strong>Country:</strong>
+🇺🇸 USA
+</p>
+
+<p>
+<strong>Service:</strong>
+<span id="selectedService">-</span>
+</p>
+
+<p>
+<strong>Price:</strong>
+₦<span id="selectedPrice">0</span>
+</p>
+
+</div>
+
+<button id="confirmPurchase" class="confirm-btn">
+
+Confirm Purchase
+
+</button>
+
+</div>
+
+</div>
 
 
 
 <!-- BOTTOM NAV -->
 
-
 <nav class="bottom-nav">
-
 
 <a href="orders.html">
 
@@ -142,17 +150,12 @@ My Orders
 
 </a>
 
-
-
 <a href="fund-wallet.html">
 
 <span>💳</span>
 Add Funds
 
 </a>
-
-
-
 
 <a href="dashboard.html" class="active">
 
@@ -161,18 +164,12 @@ Home
 
 </a>
 
-
-
-
 <a href="api.html">
 
 <span>⚡</span>
 API
 
 </a>
-
-
-
 
 <a href="#" id="logoutBtn">
 
@@ -181,24 +178,11 @@ Logout
 
 </a>
 
-
-
 </nav>
-
-
-
-
-
 
 </div>
 
-
-
-
-
 <script type="module" src="usa-numbers.js"></script>
 
-
 </body>
-
 </html>
