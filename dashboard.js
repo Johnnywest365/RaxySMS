@@ -8,12 +8,12 @@ import { auth, db } from "./firebase.js";
 import {
     onAuthStateChanged,
     signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
 
 import {
     doc,
     getDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 /* ==========================================
    DOM ELEMENTS
@@ -47,7 +47,7 @@ let currentUser = null;
 let wallet = 0;
 
 /* ==========================================
-   LOAD USER
+   AUTH CHECK
 ========================================== */
 
 onAuthStateChanged(auth, async (user) => {
@@ -75,32 +75,35 @@ async function loadUser() {
 
         const snap = await getDoc(userRef);
 
-        if (!snap.exists()) return;
+        if (!snap.exists()) {
+
+            alert("User profile not found in Firestore.");
+            return;
+
+        }
 
         const data = snap.data();
 
         userName.textContent =
             data.name ||
             currentUser.displayName ||
+            currentUser.email ||
             "User";
 
-        wallet =
-            Number(data.wallet || 0);
+        wallet = Number(data.wallet || 0);
 
         walletBalance.textContent =
             "₦" + wallet.toLocaleString();
 
         if (data.photoURL) {
-
             profileImage.src = data.photoURL;
-
         }
 
     } catch (error) {
 
-        console.error(error);
+        console.error("Dashboard Error:", error);
 
-        alert("Failed to load your account.");
+        alert(error.message);
 
     }
 
