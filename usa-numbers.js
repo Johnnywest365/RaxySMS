@@ -141,3 +141,89 @@ function renderServices() {
 }
 
 renderServices();
+
+// =====================================
+// RAXYSMS USA NUMBERS
+// PART 2/3
+// Search + Purchase Modal
+// =====================================
+
+const buyModal = document.getElementById("buyModal");
+const closeModal = document.getElementById("closeModal");
+const selectedService = document.getElementById("selectedService");
+const selectedPrice = document.getElementById("selectedPrice");
+
+let selectedPurchase = null;
+
+
+// Live Search
+
+searchInput.addEventListener("input", () => {
+
+    const keyword = searchInput.value.toLowerCase();
+
+    document.querySelectorAll(".service-card").forEach(card => {
+
+        const serviceName = card
+            .querySelector(".service-name")
+            .textContent
+            .toLowerCase();
+
+        if (serviceName.includes(keyword)) {
+
+            card.style.display = "flex";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+});
+
+
+
+// Open Purchase Modal
+
+document.addEventListener("click", (e) => {
+
+    if (!e.target.classList.contains("buy-btn")) return;
+
+    const button = e.target;
+
+    const service = button.dataset.service;
+    const price = Number(button.dataset.price);
+
+    selectedPurchase = {
+        service,
+        price
+    };
+
+    selectedService.textContent = service;
+    selectedPrice.textContent = price.toLocaleString();
+
+    buyModal.classList.add("active");
+
+});
+
+
+
+// Close Modal
+
+closeModal.addEventListener("click", () => {
+
+    buyModal.classList.remove("active");
+
+});
+
+window.addEventListener("click", (e) => {
+
+    if (e.target === buyModal) {
+
+        buyModal.classList.remove("active");
+
+    }
+
+});
