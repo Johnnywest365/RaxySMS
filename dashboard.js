@@ -108,3 +108,38 @@ async function loadUser() {
     }
 
 }
+
+/* ==========================================
+   PART 2/5
+   BOTTOM NAVIGATION
+========================================== */
+
+// Buy Account
+accountsBtn?.addEventListener("click", () => {
+    window.location.href = "buy-account.html";
+});
+
+// History
+historyBottomBtn?.addEventListener("click", () => {
+    window.location.href = "history.html";
+});
+
+// Home
+document.querySelector(".nav-home")?.addEventListener("click", () => {
+    window.location.href = "dashboard.html";
+});
+
+// API
+apiBtn?.addEventListener("click", () => {
+    window.location.href = "api.html";
+});
+
+// Logout
+logoutBtn?.addEventListener("click", async () => {
+    try {
+        await signOut(auth);
+        window.location.href = "login.html";
+    } catch (error) {
+        alert(error.message);
+    }
+});
