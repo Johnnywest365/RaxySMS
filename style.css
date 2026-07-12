@@ -1,0 +1,397 @@
+/* =======================================
+   RaxySMS Website
+   Part 2 - Navigation & Hero
+======================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#ffffff;
+    color:#111827;
+    overflow-x:hidden;
+}
+
+/* Container */
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+/* ==========================
+   Header
+========================== */
+
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(12px);
+    z-index:1000;
+    box-shadow:0 5px 25px rgba(0,0,0,.05);
+}
+
+.nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:80px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:#2563eb;
+    font-size:28px;
+    font-weight:700;
+}
+
+.logo span{
+    color:#1e3a8a;
+}
+
+.navbar{
+    display:flex;
+    gap:35px;
+}
+
+.navbar a{
+    text-decoration:none;
+    color:#374151;
+    font-weight:500;
+    transition:.3s;
+}
+
+.navbar a:hover{
+    color:#2563eb;
+}
+
+.auth-buttons{
+    display:flex;
+    gap:15px;
+}
+
+.login-btn{
+    text-decoration:none;
+    color:#2563eb;
+    font-weight:600;
+    padding:12px 22px;
+}
+
+.register-btn{
+    text-decoration:none;
+    background:#2563eb;
+    color:#fff;
+    padding:12px 24px;
+    border-radius:50px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.register-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+.menu-btn{
+    display:none;
+    font-size:30px;
+    cursor:pointer;
+}
+
+/* ==========================
+Hero
+========================== */
+
+.hero{
+    padding:160px 0 90px;
+    background:
+    radial-gradient(circle at top right,#dbeafe 0%,transparent 35%),
+    radial-gradient(circle at left,#eff6ff 0%,transparent 45%),
+    #ffffff;
+}
+
+.hero-container{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:60px;
+}
+
+.hero-left{
+    flex:1;
+}
+
+.badge{
+    display:inline-block;
+    background:#dcfce7;
+    color:#15803d;
+    padding:10px 18px;
+    border-radius:999px;
+    font-weight:600;
+    margin-bottom:25px;
+}
+
+.hero h1{
+    font-size:62px;
+    line-height:1.15;
+    color:#0f172a;
+    margin-bottom:25px;
+    font-weight:800;
+}
+
+.hero p{
+    font-size:18px;
+    color:#6b7280;
+    line-height:1.8;
+    max-width:560px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:18px;
+    margin-top:40px;
+}
+
+.primary-btn{
+    background:#2563eb;
+    color:#fff;
+    text-decoration:none;
+    padding:17px 34px;
+    border-radius:50px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.primary-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-3px);
+}
+
+.secondary-btn{
+    background:#fff;
+    border:2px solid #2563eb;
+    color:#2563eb;
+    text-decoration:none;
+    padding:15px 34px;
+    border-radius:50px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.secondary-btn:hover{
+    background:#2563eb;
+    color:#fff;
+}
+
+.countries{
+    display:flex;
+    gap:28px;
+    margin-top:40px;
+    flex-wrap:wrap;
+    font-weight:600;
+    color:#374151;
+}
+
+.hero-right{
+    flex:1;
+    text-align:center;
+}
+
+.hero-right img{
+    width:100%;
+    max-width:520px;
+    animation:float 4s ease-in-out infinite;
+    filter:drop-shadow(0 30px 40px rgba(37,99,235,.25));
+}
+
+/* Floating Animation */
+
+@keyframes float{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-15px);
+}
+
+100%{
+transform:translateY(0);
+}
+
+}
+
+/* ==========================
+Responsive
+========================== */
+
+@media(max-width:992px){
+
+.navbar,
+.auth-buttons{
+display:none;
+}
+
+.menu-btn{
+display:block;
+}
+
+.hero-container{
+flex-direction:column;
+text-align:center;
+}
+
+.hero h1{
+font-size:46px;
+}
+
+.hero p{
+margin:auto;
+}
+
+.hero-buttons{
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.countries{
+justify-content:center;
+}
+
+.hero-right{
+margin-top:50px;
+}
+
+}
+
+@media(max-width:600px){
+
+.hero{
+padding-top:130px;
+}
+
+.hero h1{
+font-size:36px;
+}
+
+.hero p{
+font-size:16px;
+}
+
+.primary-btn,
+.secondary-btn{
+width:100%;
+text-align:center;
+}
+
+.hero-buttons{
+flex-direction:column;
+}
+
+.logo{
+font-size:24px;
+}
+
+}
+/* ==========================
+   Why Choose
+========================== */
+
+.features{
+    padding:100px 0;
+    background:#f8fbff;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:60px;
+}
+
+.section-title h2{
+    font-size:42px;
+    color:#0f172a;
+    margin-bottom:15px;
+}
+
+.section-title p{
+    color:#64748b;
+    font-size:18px;
+}
+
+.feature-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+}
+
+.feature-card{
+    background:#fff;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 15px 40px rgba(15,23,42,.06);
+    transition:.3s;
+}
+
+.feature-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 25px 60px rgba(37,99,235,.15);
+}
+
+.icon{
+    width:70px;
+    height:70px;
+    border-radius:18px;
+    background:#2563eb;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+    margin-bottom:20px;
+}
+
+.feature-card h3{
+    margin-bottom:15px;
+    color:#0f172a;
+}
+
+.feature-card p{
+    color:#64748b;
+    line-height:1.7;
+}
+
+@media(max-width:992px){
+
+.feature-grid{
+    grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:600px){
+
+.feature-grid{
+    grid-template-columns:1fr;
+}
+
+.section-title h2{
+    font-size:34px;
+}
+
+}
