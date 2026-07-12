@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RaxySMS Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="dashboard.css">
+
+</head>
+
+
+<body>
+
+
+<div class="dashboard">
+
+
+
+<!-- HEADER -->
+
+<header class="top-header">
+
+<div class="logo">
+RaxySMS
+</div>
+
+
+<div class="tagline">
+Buy your verification Easy way
+</div>
+
+</header>
+
+
+
+
+
+<!-- WELCOME -->
+
+<section class="welcome">
+
+<h2>
+Welcome, <span id="userName">User</span>
+</h2>
+
+</section>
+
+
+
+
+
+<!-- WALLET CARD -->
+
+<section class="wallet-card">
+
+
+<h4>
+AVAILABLE BALANCE
+</h4>
+
+
+<div class="balance-row">
+
+<h1>
+₦<span id="walletBalance">0.00</span>
+</h1>
+
+
+<button>
++ Add Funds
+</button>
+
+
+</div>
+
+
+<p>
+Thanks for partnering with us
+</p>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- QUICK ACTIONS -->
+
+<section class="quick-actions">
+
+
+<button>
+Profile
+</button>
+
+
+<button>
+History
+</button>
+
+
+<button>
+Buy Accounts
+</button>
+
+
+<button>
+Support
+</button>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- NUMBER OPTIONS -->
+
+<section class="number-options">
+
+
+<button>
+
+🇺🇸 USA Numbers
+
+</button>
+
+
+
+<button>
+
+🌏 All Countries Numbers
+
+</button>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- RECENT ACTIVATIONS -->
+
+
+<section class="activations">
+
+
+<div class="section-title">
+
+<h3>
+⭐ Recent Activations
+</h3>
+
+
+<button>
+Refresh
+</button>
+
+
+</div>
+
+
+
+
+
+<div class="table-container">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>SERVICE</th>
+
+<th>NUMBER</th>
+
+<th>SMS CODE</th>
+
+<th>PRICE</th>
+
+<th>STATUS</th>
+
+<th>DATE</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody id="activationList">
+
+
+<tr>
+
+<td colspan="6">
+No activations yet
+</td>
+
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- BOTTOM NAVIGATION -->
+
+
+<nav class="bottom-nav">
+
+
+<button>
+My Orders
+</button>
+
+
+<button>
++ Add Funds
+</button>
+
+
+<button>
+Home
+</button>
+
+
+<button>
+API
+</button>
+
+
+<button id="logoutBtn">
+Logout
+</button>
+
+
+
+</nav>
+
+
+
+</div>
+
+
+
+
+
+<script type="module" src="dashboard.js"></script>
+
+
+</body>
+
+</html>
