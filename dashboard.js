@@ -207,3 +207,105 @@ if (logoutBtn) {
 
     });
 }
+
+/* ==========================================
+   PART 3/4
+   LOAD RECENT ACTIVATIONS
+========================================== */
+
+async function loadActivations() {
+
+    if (!currentUser) return;
+
+    activationTable.innerHTML = `
+        <tr>
+            <td colspan="6" style="text-align:center;padding:20px;">
+                Loading...
+            </td>
+        </tr>
+    `;
+
+    try {
+
+        const activationsRef = collection(db, "activations");
+
+        const q = query(
+            activationsRef,
+            where("uid", "==", currentUser.uid),
+            orderBy("createdAt", "desc"),
+            limit(20)
+        );
+
+        const snapshot = await getDocs(q);
+
+        activationTable.innerHTML = "";
+
+        if (snapshot.empty) {
+
+            activationTable.innerHTML = `
+                <tr>
+                    <td colspan="6" style="text-align:center;padding:20px;color:#999;">
+                        No activations yet
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+        snapshot.forEach((docSnap) => {
+
+            const data = docSnap.data();
+
+            const date =
+                data.createdAt
+                    ? data.createdAt.toDate().toLocaleDateString()
+                    : "-";
+
+            activationTable.innerHTML += `
+                <tr>
+                    <td>${data.service || "-"}</td>
+                    <td>${data.phoneNumber || "-"}</td>
+                    <td>${data.smsCode || "Waiting..."}</td>
+                    <td>₦${Number(data.price || 0).toLocaleString()}</td>
+                    <td>${data.status || "Waiting"}</td>
+                    <td>${date}</td>
+                </tr>
+            `;
+        });
+
+    } catch (error) {
+
+        console.error("Activation Error:", error);
+
+        activationTable.innerHTML = `
+            <tr>
+                <td colspan="6" style="text-align:center;color:red;padding:20px;">
+                    Failed to load activations
+                </td>
+            </tr>
+        `;
+
+    }
+
+}
+
+/* ==========================================
+   REFRESH ACTIVATIONS
+========================================== */
+
+if (refreshBtn) {
+
+    refreshBtn.addEventListener("click", async () => {
+
+        refreshBtn.disabled = true;
+        refreshBtn.textContent = "Loading...";
+
+        await loadActivations();
+
+        refreshBtn.disabled = false;
+        refreshBtn.textContent = "🔄 Refresh";
+
+    });
+
+}
