@@ -230,7 +230,7 @@ body{
 
 
 
-.number-options button{
+.number-btn{
 
     font-size:14px;
 
@@ -238,9 +238,33 @@ body{
 
     border:1px solid #1E293B;
 
+    border-radius:15px;
+
+    background:#0D162B;
+
+    color:white;
+
+    text-decoration:none;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:0.3s;
+
 }
 
 
+
+.number-btn:hover{
+
+    border-color:#2563EB;
+
+    transform:translateY(-2px);
+
+}
 
 
 
