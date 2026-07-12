@@ -846,3 +846,453 @@ function renderOthers(){
     .join("");
 
 }
+
+/* ==========================================================
+   SEARCH + BUY SYSTEM
+   PART 4/5
+========================================================== */
+
+
+/* ==========================================================
+   LIVE SEARCH
+========================================================== */
+
+if(searchInput){
+
+    searchInput.addEventListener(
+        "input",
+        ()=>{
+
+            const value =
+            searchInput.value
+            .toLowerCase()
+            .trim();
+
+
+            if(value === ""){
+
+                renderPopular();
+
+                renderOthers();
+
+                bindBuyButtons();
+
+                return;
+
+            }
+
+
+            const popularResult =
+            popularServices.filter(service =>
+                service.name
+                .toLowerCase()
+                .includes(value)
+            );
+
+
+            const otherResult =
+            otherServices.filter(service =>
+                service.name
+                .toLowerCase()
+                .includes(value)
+            );
+
+
+            popularContainer.innerHTML =
+            popularResult
+            .map(createServiceCard)
+            .join("");
+
+
+            otherContainer.innerHTML =
+            otherResult
+            .map(createServiceCard)
+            .join("");
+
+
+            bindBuyButtons();
+
+
+        }
+    );
+
+}
+
+
+
+/* ==========================================================
+   BUY BUTTONS
+========================================================== */
+
+function bindBuyButtons(){
+
+    const buttons =
+    document.querySelectorAll(".buy-btn");
+
+
+    buttons.forEach(button=>{
+
+
+        button.onclick = ()=>{
+
+
+            const serviceId =
+            button.dataset.id;
+
+
+            selectedService =
+            allServices.find(
+                service =>
+                service.id === serviceId
+            );
+
+
+            if(!selectedService){
+
+                alert(
+                    "Service not found"
+                );
+
+                return;
+
+            }
+
+
+            purchaseService();
+
+
+        };
+
+
+    });
+
+}
+
+
+
+/* ==========================================================
+   PURCHASE SERVICE
+========================================================== */
+
+async function purchaseService(){
+
+
+    if(!currentUser){
+
+        alert(
+            "Please login first"
+        );
+
+        return;
+
+    }
+
+
+
+    if(!selectedService){
+
+        return;
+
+    }
+
+
+
+    if(walletBalance < selectedService.price){
+
+
+        alert(
+            "Insufficient wallet balance"
+        );
+
+
+        return;
+
+
+    }
+
+
+
+    try{
+
+
+        /*
+          SMS PROVIDER API HOOK
+
+          Later connect:
+          - 5sim
+          - SMSPool
+          - SMSActivate
+          - Your own provider API
+
+        */
+
+
+        const activation = {
+
+
+            userId:
+            currentUser.uid,
+
+
+            service:
+            selectedService.name,
+
+
+            number:
+            "WAITING_PROVIDER",
+
+
+            code:
+            "WAITING",
+
+
+            price:
+            selectedService.price,
+
+
+            status:
+            "Pending",
+
+
+            createdAt:
+            serverTimestamp()
+
+
+        };
+
+
+
+        await addDoc(
+
+            collection(
+                db,
+                "activations"
+            ),
+
+            activation
+
+        );
+
+
+
+        const userRef =
+        doc(
+            db,
+            "users",
+            currentUser.uid
+        );
+
+
+
+        const newBalance =
+        walletBalance -
+        selectedService.price;
+
+
+
+        await updateDoc(
+
+            userRef,
+
+            {
+
+                wallet:newBalance
+
+            }
+
+        );
+
+
+
+        walletBalance =
+        newBalance;
+
+
+
+        alert(
+            "Number purchased successfully"
+        );
+
+
+
+        window.location.href =
+        "dashboard.html";
+
+
+
+    }catch(error){
+
+
+        console.error(
+            "Purchase Error:",
+            error
+        );
+
+
+        alert(
+            "Purchase failed"
+        );
+
+
+    }
+
+
+}
+
+
+/* ==========================================================
+   INITIAL PAGE LOAD
+========================================================== */
+
+function startUSA(){
+
+    renderPopular();
+
+    renderOthers();
+
+    bindBuyButtons();
+
+}
+
+
+/* Make function available */
+
+window.startUSA =
+startUSA;
+/* ==========================================================
+   FINAL STARTUP
+   PART 5/5
+========================================================== */
+
+
+/*
+   Wait until authentication is ready,
+   then load USA numbers page.
+*/
+
+function initializeUSA(){
+
+    if(!currentUser){
+
+        return;
+
+    }
+
+
+    startUSA();
+
+
+}
+
+
+/* ==========================================================
+   SMS PROVIDER STATUS HOOK
+========================================================== */
+
+
+/*
+   This function will later connect
+   with your SMS provider API.
+
+   Example flow:
+
+   Pending
+      ↓
+   Provider checks SMS
+      ↓
+   Code received
+      ↓
+   Firestore updated
+      ↓
+   Dashboard refreshes
+
+*/
+
+
+async function checkActivationStatus(){
+
+    console.log(
+        "SMS provider status check ready"
+    );
+
+
+    /*
+       Future API code here:
+
+       fetch(providerURL)
+
+       updateDoc(
+          activation,
+          {
+             code:"123456",
+             status:"Completed"
+          }
+       )
+
+    */
+
+}
+
+
+
+/* ==========================================================
+   DASHBOARD REDIRECT DATA
+========================================================== */
+
+
+/*
+   The dashboard will read:
+
+   Collection:
+   activations
+
+
+   Fields:
+
+   service
+   number
+   code
+   price
+   status
+   createdAt
+   userId
+
+*/
+
+
+/* ==========================================================
+   AUTO REFRESH HOOK
+========================================================== */
+
+const refreshTimer =
+setInterval(
+    ()=>{
+
+        checkActivationStatus();
+
+    },
+    30000
+);
+
+
+
+/* ==========================================================
+   CLEANUP
+========================================================== */
+
+window.addEventListener(
+    "beforeunload",
+    ()=>{
+
+        clearInterval(
+            refreshTimer
+        );
+
+    }
+);
+
+
+
+/* ==========================================================
+   END OF RAXYSMS USA NUMBERS JS
+========================================================== */
