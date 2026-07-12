@@ -1,229 +1,875 @@
-// =====================================
-// RAXYSMS USA NUMBERS
-// PART 1/5
-// =====================================
+/* ============================================================
+   RAXYSMS - USA NUMBERS
+   Part 1/4
+   Firebase + Authentication + Wallet + Service Data
+============================================================ */
+
+// =========================
+// Firebase Imports
+// =========================
 
 import { app } from "./firebase.js";
 
 import {
     getAuth,
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
 import {
     getFirestore,
     doc,
-    getDoc
-} from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+    getDoc,
+    setDoc,
+    addDoc,
+    updateDoc,
+    collection,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// =========================
+// Global Variables
+// =========================
+
 let currentUser = null;
 let walletBalance = 0;
 
-const searchInput = document.getElementById("searchInput");
+let selectedService = null;
 
-const buyButtons = document.querySelectorAll(".buy-btn");
+let popularServices = [];
+let otherServices = [];
+let allServices = [];
+
+// =========================
+// DOM Elements
+// =========================
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const popularContainer =
+    document.getElementById("popularServices");
+
+const otherContainer =
+    document.getElementById("otherServices");
+
+const walletElement =
+    document.getElementById("walletBalance");
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+const modal =
+    document.getElementById("purchaseModal");
+
+const modalService =
+    document.getElementById("modalService");
+
+const modalPrice =
+    document.getElementById("modalPrice");
+
+const modalBuyBtn =
+    document.getElementById("confirmPurchase");
+
+const closeModalBtn =
+    document.getElementById("closeModal");
+
+// =========================
+// Currency Formatter
+// =========================
+
+function formatPrice(amount) {
+    return "₦" + Number(amount).toLocaleString();
+}
+
+// =========================
+// Wallet
+// =========================
+
+async function loadWallet() {
+
+    if (!currentUser) return;
+
+    try {
+
+        const ref = doc(db, "users", currentUser.uid);
+
+        const snap = await getDoc(ref);
+
+        if (!snap.exists()) {
+
+            await setDoc(ref, {
+                wallet: 0
+            });
+
+            walletBalance = 0;
+
+        } else {
+
+            walletBalance =
+                snap.data().wallet || 0;
+        }
+
+        if (walletElement) {
+
+            walletElement.textContent =
+                formatPrice(walletBalance);
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+// =========================
+// Authentication
+// =========================
 
 onAuthStateChanged(auth, async (user) => {
 
     if (!user) {
+
         window.location.href = "login.html";
         return;
+
     }
 
     currentUser = user;
 
-    const userRef = doc(db, "users", user.uid);
+    await loadWallet();
 
-    const userSnap = await getDoc(userRef);
-
-    if (userSnap.exists()) {
-
-        const data = userSnap.data();
-
-        walletBalance = data.balance || 0;
-
-    }
+    renderAll();
 
 });
-// =====================================
-// RAXYSMS USA NUMBERS
-// PART 2/5
-// =====================================
 
-// Popular Services
+// =========================
+// Logout
+// =========================
 
-const popularServices = [
+if (logoutBtn) {
 
-    { name: "WhatsApp", price: 3500 },
-    { name: "Telegram", price: 2700 },
-    { name: "Signal", price: 1600 },
-    { name: "Viber", price: 900 },
-    { name: "Venmo", price: 1600 },
-    { name: "Chime", price: 2700 },
-    { name: "Instagram", price: 1600 },
-    { name: "Match.com", price: 1650 },
-    { name: "Plenty of Fish", price: 2700 },
-    { name: "Facebook", price: 2700 },
-    { name: "Google Voice", price: 3200 },
-    { name: "Twitter (X)", price: 1600 },
-    { name: "Yahoo", price: 1600 },
-    { name: "Gmail", price: 2700 },
-    { name: "SKout", price: 2700 },
-    { name: "PayPal", price: 1600 }
+    logoutBtn.addEventListener("click", async () => {
+
+        await signOut(auth);
+
+        window.location.href = "login.html";
+
+    });
+
+}
+
+// =========================================================
+// POPULAR SERVICES
+// (Keep this exact order)
+// =========================================================
+
+popularServices = [
+
+{
+id:"whatsapp",
+name:"WhatsApp",
+country:"USA",
+category:"Popular",
+price:3500,
+stock:999,
+active:true
+},
+
+{
+id:"telegram",
+name:"Telegram",
+country:"USA",
+category:"Popular",
+price:2700,
+stock:999,
+active:true
+},
+
+{
+id:"signal",
+name:"Signal",
+country:"USA",
+category:"Popular",
+price:1600,
+stock:999,
+active:true
+},
+
+{
+id:"viber",
+name:"Viber",
+country:"USA",
+category:"Popular",
+price:900,
+stock:999,
+active:true
+},
+
+{
+id:"venmo",
+name:"Venmo",
+country:"USA",
+category:"Popular",
+price:1600,
+stock:999,
+active:true
+},
+
+{
+id:"chime",
+name:"Chime",
+country:"USA",
+category:"Popular",
+price:2000,
+stock:999,
+active:true
+}
 
 ];
 
+// =========================================================
+// OTHER SERVICES
+// A-Z
+// =========================================================
 
-// Other Services
+otherServices = [
 
-const otherServices = [
+{
+id:"airbnb",
+name:"Airbnb",
+country:"USA",
+category:"Other",
+price:1600,
+stock:999,
+active:true
+},
 
- const otherServices = [
+{
+id:"amazon",
+name:"Amazon",
+country:"USA",
+category:"Other",
+price:1700,
+stock:999,
+active:true
+},
 
-    { name: "Amazon", price: 2600 },
-    { name: "Apple ID", price: 2800 },
-    { name: "Discord", price: 1700 },
-    { name: "LinkedIn", price: 2200 },
-    { name: "Lyft", price: 2200 },
-    { name: "Microsoft", price: 2500 },
-    { name: "Netflix", price: 2400 },
-    { name: "Reddit", price: 1800 },
-    { name: "Snapchat", price: 2100 },
-    { name: "Steam", price: 1800 },
-    { name: "TikTok", price: 2400 },
-    { name: "Uber", price: 2200 }
+{
+id:"apple",
+name:"Apple",
+country:"USA",
+category:"Other",
+price:2000,
+stock:999,
+active:true
+},
+
+{
+id:"bankofamerica",
+name:"Bank of America",
+country:"USA",
+category:"Other",
+price:2500,
+stock:999,
+active:true
+},
+
+{
+id:"binance",
+name:"Binance",
+country:"USA",
+category:"Other",
+price:2400,
+stock:999,
+active:true
+},
+
+{
+id:"cashapp",
+name:"Cash App",
+country:"USA",
+category:"Other",
+price:2500,
+stock:999,
+active:true
+},
+
+{
+id:"coinbase",
+name:"Coinbase",
+country:"USA",
+category:"Other",
+price:2200,
+stock:999,
+active:true
+},
+
+{
+id:"discord",
+name:"Discord",
+country:"USA",
+category:"Other",
+price:1400,
+stock:999,
+active:true
+},
+
+{
+id:"ebay",
+name:"eBay",
+country:"USA",
+category:"Other",
+price:1800,
+stock:999,
+active:true
+},
+
+{
+id:"facebook",
+name:"Facebook",
+country:"USA",
+category:"Other",
+price:2700,
+stock:999,
+active:true
+},
+
+{
+id:"gmail",
+name:"Gmail",
+country:"USA",
+category:"Other",
+price:1200,
+stock:999,
+active:true
+},
+
+{
+id:"googlevoice",
+name:"Google Voice",
+country:"USA",
+category:"Other",
+price:3000,
+stock:999,
+active:true
+},
+
+{
+id:"instagram",
+name:"Instagram",
+country:"USA",
+category:"Other",
+price:2500,
+stock:999,
+active:true
+},
+
+{
+id:"line",
+name:"LINE",
+country:"USA",
+category:"Other",
+price:1300,
+stock:999,
+active:true
+},
+
+{
+id:"linkedin",
+name:"LinkedIn",
+country:"USA",
+category:"Other",
+price:1800,
+stock:999,
+active:true
+},
+
+{
+id:"lyft",
+name:"Lyft",
+country:"USA",
+category:"Other",
+price:1800,
+stock:999,
+active:true
+},
+
+{
+id:"microsoft",
+name:"Microsoft",
+country:"USA",
+category:"Other",
+price:1700,
+stock:999,
+active:true
+},
+
+{
+id:"netflix",
+name:"Netflix",
+country:"USA",
+category:"Other",
+price:2000,
+stock:999,
+active:true
+},
+
+{
+id:"nike",
+name:"Nike",
+country:"USA",
+category:"Other",
+price:1700,
+stock:999,
+active:true
+}
 
 ];
 
-const popularContainer = document.getElementById("popularServices");
-const otherContainer = document.getElementById("otherServices");
+// =========================================================
+// OTHER SERVICES (Continued A-Z)
+// =========================================================
 
+otherServices.push(
+
+{
+id:"okx",
+name:"OKX",
+country:"USA",
+category:"Other",
+price:2200,
+stock:999,
+active:true
+},
+
+{
+id:"paypal",
+name:"PayPal",
+country:"USA",
+category:"Other",
+price:2600,
+stock:999,
+active:true
+},
+
+{
+id:"paxful",
+name:"Paxful",
+country:"USA",
+category:"Other",
+price:2400,
+stock:999,
+active:true
+},
+
+{
+id:"pinterest",
+name:"Pinterest",
+country:"USA",
+category:"Other",
+price:1700,
+stock:999,
+active:true
+},
+
+{
+id:"reddit",
+name:"Reddit",
+country:"USA",
+category:"Other",
+price:1700,
+stock:999,
+active:true
+},
+
+{
+id:"revolut",
+name:"Revolut",
+country:"USA",
+category:"Other",
+price:2600,
+stock:999,
+active:true
+},
+
+{
+id:"roblox",
+name:"Roblox",
+country:"USA",
+category:"Other",
+price:1500,
+stock:999,
+active:true
+},
+
+{
+id:"skype",
+name:"Skype",
+country:"USA",
+category:"Other",
+price:1200,
+stock:999,
+active:true
+},
+
+{
+id:"snapchat",
+name:"Snapchat",
+country:"USA",
+category:"Other",
+price:2100,
+stock:999,
+active:true
+},
+
+{
+id:"steam",
+name:"Steam",
+country:"USA",
+category:"Other",
+price:1800,
+stock:999,
+active:true
+},
+
+{
+id:"tiktok",
+name:"TikTok",
+country:"USA",
+category:"Other",
+price:2400,
+stock:999,
+active:true
+},
+
+{
+id:"tinder",
+name:"Tinder",
+country:"USA",
+category:"Other",
+price:1800,
+stock:999,
+active:true
+},
+
+{
+id:"uber",
+name:"Uber",
+country:"USA",
+category:"Other",
+price:2000,
+stock:999,
+active:true
+},
+
+{
+id:"wechat",
+name:"WeChat",
+country:"USA",
+category:"Other",
+price:1400,
+stock:999,
+active:true
+},
+
+{
+id:"wechatbusiness",
+name:"WeChat Business",
+country:"USA",
+category:"Other",
+price:1800,
+stock:999,
+active:true
+},
+
+{
+id:"wise",
+name:"Wise",
+country:"USA",
+category:"Other",
+price:2600,
+stock:999,
+active:true
+},
+
+{
+id:"x",
+name:"X (Twitter)",
+country:"USA",
+category:"Other",
+price:1900,
+stock:999,
+active:true
+},
+
+{
+id:"yahoo",
+name:"Yahoo",
+country:"USA",
+category:"Other",
+price:1300,
+stock:999,
+active:true
+}
+
+);
+
+// =========================================================
+// Merge & Sort Services
+// =========================================================
+
+otherServices.sort((a, b) => a.name.localeCompare(b.name));
+
+allServices = [
+    ...popularServices,
+    ...otherServices
+];
+
+// =========================================================
+// Service Card
+// =========================================================
 
 function createServiceCard(service) {
 
     return `
-
         <div class="service-card">
 
-            <div class="service-name">
-                ${service.name}
+            <div class="service-left">
+
+                <h3>${service.name}</h3>
+
+                <small>${service.country}</small>
+
             </div>
 
-            <div class="service-price">
-                ₦${service.price.toLocaleString()}
-            </div>
+            <div class="service-right">
 
-            <button
-                class="buy-btn"
-                data-service="${service.name}"
-                data-price="${service.price}">
-                Buy
-            </button>
+                <span class="price">
+                    ${formatPrice(service.price)}
+                </span>
+
+                <button
+                    class="buy-btn"
+                    data-id="${service.id}">
+                    Buy
+                </button>
+
+            </div>
 
         </div>
-
     `;
 
 }
 
+// =========================================================
+// Render Popular
+// =========================================================
 
-function renderServices() {
+function renderPopular(list = popularServices) {
+
+    if (!popularContainer) return;
 
     popularContainer.innerHTML =
-        popularServices.map(createServiceCard).join("");
-
-    otherContainer.innerHTML =
-        otherServices.map(createServiceCard).join("");
+        list.map(createServiceCard).join("");
 
 }
 
-renderServices();
+// =========================================================
+// Render Other
+// =========================================================
 
-// =====================================
-// RAXYSMS USA NUMBERS
-// PART 2/3
-// Search + Purchase Modal
-// =====================================
+function renderOthers(list = otherServices) {
 
-const buyModal = document.getElementById("buyModal");
-const closeModal = document.getElementById("closeModal");
-const selectedService = document.getElementById("selectedService");
-const selectedPrice = document.getElementById("selectedPrice");
+    if (!otherContainer) return;
 
-let selectedPurchase = null;
+    otherContainer.innerHTML =
+        list.map(createServiceCard).join("");
 
+}
 
+// =========================================================
+// Render Everything
+// =========================================================
+
+function renderAll() {
+
+    renderPopular();
+
+    renderOthers();
+
+    bindBuyButtons();
+
+}
+
+// =========================================================
 // Live Search
+// =========================================================
 
-searchInput.addEventListener("input", () => {
+if (searchInput) {
 
-    const keyword = searchInput.value.toLowerCase();
+    searchInput.addEventListener("input", (e) => {
 
-    document.querySelectorAll(".service-card").forEach(card => {
-
-        const serviceName = card
-            .querySelector(".service-name")
-            .textContent
+        const keyword = e.target.value
+            .trim()
             .toLowerCase();
 
-        if (serviceName.includes(keyword)) {
+        if (keyword === "") {
 
-            card.style.display = "flex";
+            renderPopular();
+            renderOthers();
 
-        } else {
-
-            card.style.display = "none";
-
+            return;
         }
+
+        const popularResults = popularServices.filter(service =>
+            service.name.toLowerCase().includes(keyword)
+        );
+
+        const otherResults = otherServices.filter(service =>
+            service.name.toLowerCase().includes(keyword)
+        );
+
+        renderPopular(popularResults);
+        renderOthers(otherResults);
 
     });
 
-});
+}
 
+// =========================================================
+// Bind Buy Buttons
+// =========================================================
 
+function bindBuyButtons() {
 
+    const buttons = document.querySelectorAll(".buy-btn");
+
+    buttons.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            const id = button.dataset.id;
+
+            selectedService = allServices.find(service =>
+                service.id === id
+            );
+
+            if (!selectedService) return;
+
+            openPurchaseModal(selectedService);
+
+        });
+
+    });
+
+}
+
+// =========================================================
 // Open Purchase Modal
+// =========================================================
 
-document.addEventListener("click", (e) => {
+function openPurchaseModal(service) {
 
-    if (!e.target.classList.contains("buy-btn")) return;
+    if (!modal) return;
 
-    const button = e.target;
+    if (modalService) {
+        modalService.textContent = service.name;
+    }
 
-    const service = button.dataset.service;
-    const price = Number(button.dataset.price);
+    if (modalPrice) {
+        modalPrice.textContent = formatPrice(service.price);
+    }
 
-    selectedPurchase = {
-        service,
-        price
-    };
+    modal.classList.add("show");
 
-    selectedService.textContent = service;
-    selectedPrice.textContent = price.toLocaleString();
+}
 
-    buyModal.classList.add("active");
+// =========================================================
+// Close Purchase Modal
+// =========================================================
 
-});
+function closePurchaseModal() {
 
+    if (!modal) return;
 
+    modal.classList.remove("show");
 
-// Close Modal
+    selectedService = null;
 
-closeModal.addEventListener("click", () => {
+}
 
-    buyModal.classList.remove("active");
+if (closeModalBtn) {
 
-});
+    closeModalBtn.addEventListener("click", () => {
 
-window.addEventListener("click", (e) => {
+        closePurchaseModal();
 
-    if (e.target === buyModal) {
+    });
 
-        buyModal.classList.remove("active");
+}
+
+window.addEventListener("click", (event) => {
+
+    if (event.target === modal) {
+
+        closePurchaseModal();
 
     }
 
 });
+
+// =========================================================
+// Wallet Balance Check
+// =========================================================
+
+function hasEnoughBalance(service) {
+
+    return walletBalance >= service.price;
+
+}
+
+// =========================================================
+// Purchase Validation
+// =========================================================
+
+async function beginPurchase() {
+
+    if (!selectedService) {
+
+        alert("Please select a service.");
+
+        return;
+
+    }
+
+    if (!selectedService.active) {
+
+        alert("This service is currently unavailable.");
+
+        return;
+
+    }
+
+    if (!hasEnoughBalance(selectedService)) {
+
+        alert("Insufficient wallet balance.");
+
+        return;
+
+    }
+
+    await completePurchase();
+
+}
+
+if (modalBuyBtn) {
+
+    modalBuyBtn.addEventListener("click", beginPurchase);
+
+}
