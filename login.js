@@ -1,20 +1,29 @@
-import { 
-    getAuth,
+ // ======================================
+// RaxySMS Login
+// ======================================
+
+import {
+    auth
+} from "./firebase.js";
+
+
+import {
     signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
-
-
-import { app } from "./firebase.js";
-
-
-const auth = getAuth(app);
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
 
 
 
-const loginBtn = document.getElementById("loginBtn");
+const form = document.getElementById("loginForm");
+
+const button = document.getElementById("loginBtn");
 
 
-loginBtn.addEventListener("click", async ()=>{
+
+form.addEventListener("submit", async (e) => {
+
+
+    e.preventDefault();
+
 
 
     const email = document.getElementById("email").value.trim();
@@ -23,88 +32,51 @@ loginBtn.addEventListener("click", async ()=>{
 
 
 
-    if(!email || !password){
+    button.disabled = true;
 
-        alert("Please enter email and password");
-
-        return;
-
-    }
+    button.textContent = "Logging in...";
 
 
 
-    loginBtn.innerText = "Logging in...";
-
-    loginBtn.disabled = true;
-
-
-
-    try{
+    try {
 
 
         await signInWithEmailAndPassword(
+
             auth,
+
             email,
+
             password
+
         );
 
 
-        alert("Login successful");
+
+        alert("Login successful!");
+
 
 
         window.location.href = "dashboard.html";
 
 
 
-    }catch(error){
+    }
+
+
+    catch(error){
 
 
         alert(error.message);
 
 
-        loginBtn.innerText = "Login";
-
-        loginBtn.disabled = false;
-
-
     }
 
 
 
-});
+    button.disabled = false;
 
-
-
-
-
-// SHOW / HIDE PASSWORD
-
-const passwordInput = document.getElementById("password");
-
-const togglePassword = document.getElementById("togglePassword");
-
-
-
-togglePassword.addEventListener("click", ()=>{
-
-
-    if(passwordInput.type === "password"){
-
-
-        passwordInput.type = "text";
-
-        togglePassword.textContent = "🙈";
-
-
-    }else{
-
-
-        passwordInput.type = "password";
-
-        togglePassword.textContent = "👁";
-
-
-    }
+    button.textContent = "Login";
 
 
 });
