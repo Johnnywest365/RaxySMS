@@ -608,6 +608,62 @@ body{
      FIREBASE + PAGE SCRIPT
 ========================================== -->
 
+    ==========================================
+     INSUFFICIENT BALANCE MODAL
+========================================== -->
+
+<div id="balanceModal" class="modal">
+
+    <div class="modal-box">
+
+        <h2>💳 Insufficient Balance</h2>
+
+        <p class="modal-message">
+            Your wallet balance is not enough to purchase this USA number.
+        </p>
+
+        <div class="balance-info">
+
+            <p>
+                <strong>Wallet:</strong>
+                <span id="walletAmount">
+                    ₦0
+                </span>
+            </p>
+
+            <p>
+                <strong>Service Price:</strong>
+                <span id="serviceAmount">
+                    ₦0
+                </span>
+            </p>
+
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+                id="closeBalanceModal"
+                class="cancel-btn">
+
+                Go Back
+
+            </button>
+
+            <button
+                id="fundWalletBtn"
+                class="confirm-btn">
+
+                Add Funds
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 <script type="module" src="./usa-numbers.js"></script>
 
