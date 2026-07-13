@@ -22,11 +22,6 @@ import {
 
 const searchInput = document.getElementById("searchInput");
 
-const popularServices = document.getElementById("popularServices");
-const otherServices = document.getElementById("otherServices");
-
-const walletBalance = document.getElementById("walletBalance");
-
 const logoutBtn = document.getElementById("logoutBtn");
 
 /* ==========================================
