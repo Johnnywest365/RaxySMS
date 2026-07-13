@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RaxySMS Admin</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="admin-container">
+
+    <header class="topbar">
+        <h1>🛠 RaxySMS Admin Panel</h1>
+
+        <button id="logoutBtn">
+            Logout
+        </button>
+    </header>
+
+    <section class="card">
+
+        <h2>Add USA Service</h2>
+
+        <input
+            type="text"
+            id="serviceName"
+            placeholder="Service Name">
+
+        <input
+            type="number"
+            id="servicePrice"
+            placeholder="Price (₦)">
+
+        <button id="addServiceBtn">
+            Add Service
+        </button>
+
+    </section>
+
+    <section class="card">
+
+        <h2>USA Services</h2>
+
+        <div id="servicesList">
+
+            <p class="loading">
+                Loading services...
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script type="module" src="admin.js"></script>
+
+</body>
+</html>
