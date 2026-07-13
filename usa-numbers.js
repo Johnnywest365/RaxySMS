@@ -275,3 +275,68 @@ continueBtn.addEventListener("click", async () => {
     continueBtn.textContent = "Continue Purchase Number";
 
 });
+
+/* ==========================================
+   START PURCHASE
+========================================== */
+
+async function startPurchase() {
+
+    try {
+
+        // STEP 1
+        // Load latest wallet balance
+
+        const userRef = doc(db, "users", auth.currentUser.uid);
+
+        const userSnap = await getDoc(userRef);
+
+        if (!userSnap.exists()) {
+
+            alert("User not found.");
+            return;
+
+        }
+
+        const userData = userSnap.data();
+
+        const wallet = Number(userData.wallet || 0);
+
+        const price = Number(selectedServiceData.price);
+
+        // STEP 2
+        // Wallet Check
+
+        if (wallet < price) {
+
+            sessionStorage.setItem(
+                "purchaseType",
+                "error"
+            );
+
+            sessionStorage.setItem(
+                "purchaseMessage",
+                `Insufficient Balance. Need ₦${price.toLocaleString()}, You have ₦${wallet.toLocaleString()}`
+            );
+
+            window.location.href = "dashboard.html";
+
+            return;
+
+        }
+
+        // STEP 3
+        // Next:
+        // Request number from backend
+
+        alert("Wallet check passed. Backend connection is the next step.");
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(error.message);
+
+    }
+
+}
