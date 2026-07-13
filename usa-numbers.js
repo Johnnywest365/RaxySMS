@@ -30,6 +30,21 @@ const walletBalance = document.getElementById("walletBalance");
 const logoutBtn = document.getElementById("logoutBtn");
 
 /* ==========================================
+   BALANCE MODAL
+========================================== */
+
+const balanceModal = document.getElementById("balanceModal");
+
+const walletAmount = document.getElementById("walletAmount");
+const serviceAmount = document.getElementById("serviceAmount");
+
+const closeBalanceModal =
+    document.getElementById("closeBalanceModal");
+
+const fundWalletBtn =
+    document.getElementById("fundWalletBtn");
+
+/* ==========================================
    GLOBAL VARIABLES
 ========================================== */
 
