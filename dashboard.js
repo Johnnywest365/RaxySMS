@@ -12,7 +12,13 @@ import {
 
 import {
     doc,
-    getDoc
+    getDoc,
+    collection,
+    getDocs,
+    query,
+    where,
+    orderBy,
+    limit
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 /* ==========================================
