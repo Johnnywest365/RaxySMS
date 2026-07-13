@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>USA Numbers | RaxySMS</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="numbers.css">
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- ==========================
+         HEADER
+    =========================== -->
+
+    <header class="top-header">
+
+        <h1>
+            🇺🇸 USA Numbers
+        </h1>
+
+    </header>
+
+
+    <!-- ==========================
+         SEARCH
+    =========================== -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search Services...">
+
+    </div>
+
+
+    <!-- ==========================
+         TABLE HEADER
+    =========================== -->
+
+    <div class="table-header">
+
+        <span>Service</span>
+
+        <span>Price</span>
+
+        <span>Action</span>
+
+    </div>
+
+
+    <!-- ==========================
+         SERVICES
+    =========================== -->
+
+    <section class="services-card">
+
+        <h2>
+
+            🌍 ALL SERVICES
+
+        </h2>
+
+        <div id="servicesList">
+
+            <!-- Loaded by usa-numbers.js -->
+
+        </div>
+
+    </section>
+
+      <!-- ==========================================
+         SUCCESS OVERLAY
+    ========================================== -->
+
+    <div id="successOverlay" class="fullscreen-overlay">
+
+        <div class="popup-card success">
+
+            <div class="popup-icon">
+                ✅
+            </div>
+
+            <h2>
+                SUCCESS
+            </h2>
+
+            <p>
+
+                Number generated
+                successfully!
+
+            </p>
+
+            <h3>
+
+                Price:
+                <span id="successPrice">
+                    ₦0
+                </span>
+
+            </h3>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         RENTAL FAILED
+    ========================================== -->
+
+    <div id="failedOverlay" class="fullscreen-overlay">
+
+        <div class="popup-card failed">
+
+            <div class="popup-icon">
+                ❌
+            </div>
+
+            <h2>
+
+                RENTAL FAILED
+
+            </h2>
+
+            <p>
+
+                Insufficient wallet balance.
+
+            </p>
+
+            <div class="popup-info">
+
+                <p>
+
+                    Need:
+                    <strong id="needAmount">
+                        ₦0
+                    </strong>
+
+                </p>
+
+                <p>
+
+                    You have:
+                    <strong id="walletAmount">
+                        ₦0
+                    </strong>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         OUT OF STOCK
+    ========================================== -->
+
+    <div id="stockOverlay" class="fullscreen-overlay">
+
+        <div class="popup-card warning">
+
+            <div class="popup-icon">
+                ⚠️
+            </div>
+
+            <h2>
+
+                OUT OF STOCK
+
+            </h2>
+
+            <p>
+
+                Number is currently unavailable.
+
+            </p>
+
+            <p>
+
+                Please try again
+                in a few minutes.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         BOTTOM NAVIGATION
+    ========================================== -->
+
+    <nav class="bottom-nav">
+
+        <a href="dashboard.html">
+
+            🏠
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <a
+            href="usa-numbers.html"
+            class="active">
+
+            📱
+
+            <span>
+                Numbers
+            </span>
+
+        </a>
+
+
+        <a href="fund-wallet.html">
+
+            💰
+
+            <span>
+                Wallet
+            </span>
+
+        </a>
+
+
+        <button id="logoutBtn">
+
+            🚪
+
+            <span>
+                Logout
+            </span>
+
+        </button>
+
+    </nav>
+
+
+    <script
+        type="module"
+        src="./usa-numbers.js">
+
+    </script>
+
+      <!-- ==========================================
+         PURCHASE LOADING OVERLAY
+    ========================================== -->
+
+    <div id="loadingOverlay" class="fullscreen-overlay">
+
+        <div class="popup-card loading">
+
+            <div class="loader"></div>
+
+            <h2>
+
+                Processing...
+
+            </h2>
+
+            <p>
+
+                Please wait while we generate
+                your USA number.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+</body>
+
+</html>
