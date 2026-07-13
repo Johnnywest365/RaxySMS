@@ -415,7 +415,6 @@ function formatStatus(status) {
 ========================================== */
 
 console.log("✅ RaxySMS Dashboard Loaded Successfully");
-
 /* ==========================================
    DASHBOARD MESSAGE
 ========================================== */
