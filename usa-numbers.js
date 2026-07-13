@@ -56,6 +56,36 @@ let popular = [];
 let others = [];
 
 /* ==========================================
+   BALANCE MODAL FUNCTIONS
+========================================== */
+
+function showBalanceModal(servicePrice) {
+
+    walletAmount.textContent =
+        "₦" + wallet.toLocaleString();
+
+    serviceAmount.textContent =
+        "₦" + Number(servicePrice).toLocaleString();
+
+    balanceModal.style.display = "flex";
+
+}
+
+function hideBalanceModal() {
+
+    balanceModal.style.display = "none";
+
+}
+
+closeBalanceModal.onclick = hideBalanceModal;
+
+fundWalletBtn.onclick = () => {
+
+    window.location.href = "fund-wallet.html";
+
+};
+
+/* ==========================================
    AUTH CHECK
 ========================================== */
 
