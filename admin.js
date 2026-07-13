@@ -15,7 +15,9 @@ import {
     addDoc,
     getDocs,
     query,
-    orderBy
+    orderBy,
+    deleteDoc,
+    doc
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 const serviceName = document.getElementById("serviceName");
