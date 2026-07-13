@@ -65,6 +65,9 @@ onAuthStateChanged(auth, async (user) => {
     currentUser = user;
 
     await loadUser();
+    await loadActivations();
+    await loadActiveNumbers();
+    showDashboardMessage();
 
 });
 
