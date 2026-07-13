@@ -87,24 +87,29 @@ async function loadServices() {
 
     try {
 
-        const snapshot = await getDocs(collection(db, "services"));
+        console.log("Loading services...");
 
         allServices = [];
+
+        const snapshot = await getDocs(collection(db, "services"));
+
+        console.log("Documents found:", snapshot.size);
 
         snapshot.forEach((docSnap) => {
 
             const data = docSnap.data();
 
-            console.log("Service Loaded:", data);
+            console.log(data);
 
             allServices.push({
                 id: docSnap.id,
-                ...data
+                name: data.name,
+                price: Number(data.price)
             });
 
         });
 
-        console.log("All Services:", allServices);
+        console.log("Loaded Services:", allServices);
 
     } catch (error) {
 
