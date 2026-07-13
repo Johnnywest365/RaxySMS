@@ -109,17 +109,22 @@ async function loadServices() {
 
         console.log("✅ Services Loaded:", allServices);
 
-    } catch (error) {
+catch (error) {
 
-        console.error("❌ Load Services Error:", error);
+    console.error("❌ Load Services Error:", error);
 
-        serviceResults.innerHTML = `
-            <div class="service-empty">
-                Failed to load services.
-            </div>
-        `;
+    alert(
+        "Load Services Error:\n\n" +
+        error.message
+    );
 
-    }
+    serviceResults.innerHTML = `
+        <div class="service-empty">
+            Failed to load services.
+        </div>
+    `;
+
+}
 
 /* ==========================================
    SEARCH SERVICES
